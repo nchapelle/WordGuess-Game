@@ -1,0 +1,22 @@
+.main {
+    position: absolute;
+    background-color: aquamarine;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+ 
+}
+
+.hintBox {
+    position: relative;
+    float: left;
+    border: solid blue;
+    background-color: yellow;
+}
+
+.gameBox{
+    position: relative;
+    float: left;
+    border: solid blue;
+    background-color: pink;
+}
