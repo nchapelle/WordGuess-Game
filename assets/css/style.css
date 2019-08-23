@@ -10,13 +10,21 @@
 .hintBox {
     position: relative;
     float: left;
-    border: solid blue;
+    border: solid blue 5px;
     background-color: yellow;
 }
 
 .gameBox{
     position: relative;
     float: left;
-    border: solid blue;
+    border: solid blue 5px;
     background-color: pink;
+}
+
+
+.activeGuesses {
+    
+    width: 100%;
+    border: solid red 5px;
+
 }
