@@ -17,14 +17,19 @@
 
 <body>
     <div class=main>
-        <div class=hintBox><img src=assets\images\squares3.jpg></div>
-        <div class=gameBox><h1>Press Any Key to Get Started</h1>
-            <div class=GuessMe><h2>Test</h2></div>
-            <div class=activeGuesses></div>
-            
+        <div class=container-fluid>
+            <div class=row>
+                <div class="col-xs-12 col-lg-6" id=hintBox><img src=assets\images\squares3.jpg></div>
+                <div class="col-xs-12 col-lg-6" id=gameBox><h1>Press Any Key to Get Started</h1>
+                    <div class=row>
+                        <div class="col-xs-12 col-lg-4" id=GuessMe><h2>Test</h2></div>
+                        <div class="col-xs-12 col-lg-4" id=activeGuesses>Test</div>
+                        <div class="col-xs-12 col-lg-4" id=blanks>Test</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-
+    </div>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -40,7 +45,7 @@
         <script src="assets/javascript/game.js"></script>
 
        
-    </div>
+    
 </body>
 
 </html>

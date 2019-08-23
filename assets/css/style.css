@@ -7,14 +7,14 @@
  
 }
 
-.hintBox {
+#hintBox {
     position: relative;
     float: left;
     border: solid blue 5px;
     background-color: yellow;
 }
 
-.gameBox{
+#gameBox{
     position: relative;
     float: left;
     border: solid blue 5px;
@@ -22,7 +22,7 @@
 }
 
 
-.activeGuesses {
+#activeGuesses {
     
     width: 100%;
     border: solid red 5px;
