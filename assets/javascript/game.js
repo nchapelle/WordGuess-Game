@@ -3,131 +3,167 @@
 
 // get element by ID
 
-//Event Listener (for keys pressed that coorespond with word) 
-var userArr=[];
-var wrongArr=[];
-var guessesleft=5;
-var wins=0;
+
+// 1. Need a working replaceChar function
+// 2. Need to change photo to correspond with randomizer choice
+// 3. Need to update round based on key.input 
+
+
+var userArr = [];
+var wrongArr = [];
+var guessesleft = 5;
+var wins = 0;
 var pokemon = ""
-function start(){
-    
-        
+var letter = ""
+var pokeIMG = ""
+function start() {
+
+
     //clear out your div
-    $("#GuessMe").empty();
-    $("#activeGuesses").empty();
-    $("#blanks").empty();
-    // pokemon=randomize();
-    // userArr=makeBlankArr(pokemon);
-    guessesleft=5;
-    $("GuessMe").text(wins)
-    $("GuessMe").append("<br><hr>" + guessesleft)
+    console.log($("#Wins").text())
+    $("#Wins #Guesses #activeGuesses #blanks").empty();
+    guessesleft = 5;
+    $("#Wins").text("Wins: " + wins)
+    $("#Guesses").text("Guesses Left: " + guessesleft)
+    userArr = [];
+    wrongArr = [];
     wordGuess.randomize()
     wordGuess.makeBlankArr(pokemon)
+
+    console.log("Yep it on")
     // wrongArr=[];
 }
 
+
 var wordGuess = {
 
-    answerList: [
-        "bulbasaur",
-        "charmander",
-        "squirtle",
-        "pikachu",
-        "jigglypuff",
-        "butterfree",
-        "kingler",
-        "gengar",
-        "dragonite",
-        "zubat"
-    ],
+    names: ["bulbasaur", "charmander", "squirtle", "pikachu", "jigglypuff", "butterfree", "kingler", "gengar", "mewtwo", "golbat"],
 
-    
-    randomize: function(){
-        
-        var pokemon= wordGuess.answerList[Math.floor(Math.random() * 10)];
+    images: ["assets/images/[0]bulbasaur.png", "assets/images/[1]charmander.jpg", "assets/images/[2]squirtle.jpg",
+        "assets/images/[3]pikachu.jpg", "assets/images/[4]jigglypuff.jpg", "assets/images/[5]butterfree.jpg",
+        "assets/images/[6]kingler.jpg", "assets/images/[7]gengar.jpg", "assets/images/[8]mewtwo.jpg", "assets/images/[9]golbat.jpg",],
+
+
+    randomize: function () {
+        var indexNum = Math.floor(Math.random() * 10)
+        pokemon = wordGuess.names[indexNum];
         //picks a random word from wordbank
         console.log(pokemon)
-        
-        wordGuess.makeBlankArr(pokemon) 
-             
+        pokeIMG = wordGuess.images[indexNum]
+        $("#wtp").attr("src", pokeIMG);
+
+
     },
 
-    
-    makeBlankArr: function(x){
 
-        for(var i=0;i<x.length;i++){
+    makeBlankArr: function (x) {
+
+        for (var i = 0; i < x.length; i++) {
             userArr.push("_ ");
         }
         // console.log(userArr)
-        $("#blanks").text(userArr);
-     
+        $("#activeGuesses").text(userArr.join(" "));
+
         return userArr;
-    },      
-    
-    
-    checkrounds: function(){
-        if(guessesleft == 0){
+    },
+
+
+    checkrounds: function () {
+        if (guessesleft == 0) {
             alert("Game Over");
             start();
         };
-        if(pokemon = userArr){
+        if (pokemon = userArr) {
             wins++;
             start();
         };
     },
 
-    checkIfDone: function(userArr,pokemon)
-    {
-        var isDone=true;
-        //forloop
-        for(var i=0; i<pokemon.length;i++){
+    checkIfDone: function (userArr, pokemon) {
+        var isDone = true;
+        var userGuess = userArr.join("");
 
-            if(!pokemon.includes(userArr[i])){
-                return false;
-            }
+        if (pokemon === userGuess) {
+             wins++
+            alert("You Win!")
+            start();
         }
-        return isDone;
+        else {
+            $("#blanks").text("Guesses Left: " + guessesleft)
+            if (guessesleft === 0) {
+                alert("Game Over")
+                start()
+            }
+            
+
+
+        }
+
     },
 
-    duplicates: function(arr, letter){
-    var isDup=false;
-    // check the letter is already in the arr
-    //prob runfor loop and see if letterincludes arr[i]
-    for(i=0; i<=arr.length; i++){
-        if(!letter.includes(arr[i]))
-        var isDup=true;
-    }
-    return isDup;
-    },
 
-    nextTurn: function(){
+    nextTurn: function () {
         //check onkey event letter includes pokemon;
     },
-    
-    replaceChar: function(userArr, letter, pokemon){
-        
-        for(i=0; i>=pokemon.length; i++){
-        if(userArr[i].includes(letter));
-        (userArr[i]=letter);
+
+
+
+    goodLetter: function (userArr, letter, pokemon) {
+
+
+        for (i = 0; i <= pokemon.length; i++) {
+
+
+            if (letter === pokemon[i]) {
+
+                userArr[i] = letter;
+                $("#activeGuesses").text(userArr)
+                wordGuess.checkIfDone(userArr, pokemon);
+            }
         }
     },
+    badLetter: function (wrongArr, letter, pokemon) {
+        wrongArr.push(letter)
+        guessesleft--
+        $("#Guesses").text("Guesses Left: " + guessesleft)
+        $("#blanks").text(wrongArr);
+        wordGuess.checkIfDone(userArr, pokemon);
+    },
+
+    duplicates: function (x, letter) {
+        var isDup = false;
+        // check the letter is already in the arr
+        //prob runfor loop and see if letterincludes arr[i]
+        for (i = 0; i <= x.length; i++) {
+            if (!letter.includes(userArr[i]))
+                var isDup = true;
+        }
+        return isDup;
+    },
+
+
 
 };
 
-onload=start()
-$(document).ready(function(){
+onload = start()
+$(document).ready(function () {
 
-    $(document).on("keyup", function(){
+    $(document).on("keyup", function () {
 
-    
-        var letter = event.key.toLowerCase();
+
+        letter = event.key.toLowerCase();
         console.log(letter);
         // wordGuess.checkrounds();
-        wordGuess.checkIfDone();
-        wordGuess.replaceChar();
-        wordGuess.duplicates();
+        // wordGuess.checkIfDone();
+        if (pokemon.includes(letter)) {
+            wordGuess.goodLetter(userArr, letter, pokemon);
+        }
+        else {
+            wordGuess.badLetter(wrongArr, letter, pokemon)
+        }
+    
 
-        return letter;
+
 
     });
 
@@ -138,13 +174,13 @@ $(document).ready(function(){
 
 
 
-      
-      
-    
-    
+
+
+
+
     //create a fx that passes in pokemon and returns the pokemon word as blanks
 
-    
+
     //randomizer once pokemon is picked
     //picture to show up 
     //_ _ _ _
@@ -159,12 +195,12 @@ $(document).ready(function(){
 
 
 
-    
-
-    
 
 
-    
+
+
+
+
 
 
 
