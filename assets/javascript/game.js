@@ -89,7 +89,7 @@ var wordGuess = {
             start();
         }
         else {
-            $("#blanks").text("Guesses Left: " + guessesleft)
+            $("#blanks").text(wrongArr)
             if (guessesleft === 0) {
                 alert("Game Over")
                 start()
@@ -150,7 +150,7 @@ $(document).ready(function () {
 
     $(document).on("keyup", function () {
 
-
+        
         letter = event.key.toLowerCase();
         console.log(letter);
         // wordGuess.checkrounds();
